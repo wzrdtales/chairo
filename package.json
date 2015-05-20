@@ -1,0 +1,33 @@
+{
+  "name": "chairo",
+  "description": "Seneca micro-services plugin for hapi",
+  "version": "0.0.0",
+  "repository": "git://github.com/hapijs/chairo",
+  "main": "lib/index.js",
+  "keywords": [
+    "hapi",
+    "plugin",
+    "microservices",
+    "seneca"
+  ],
+  "engines": {
+    "node": ">=0.10.38"
+  },
+  "dependencies": {
+    "boom": "2.x.x",
+    "hoek": "2.x.x"
+  },
+  "peerDependencies": {
+    "hapi": "8.x.x"
+  },
+  "devDependencies": {
+    "code": "1.x.x",
+    "hapi": "8.x.x",
+    "lab": "5.x.x"
+  },
+  "scripts": {
+    "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
+    "test-cov-html": "node node_modules/lab/bin/lab -a code -r html -o coverage.html"
+  },
+  "license": "BSD-3-Clause"
+}
