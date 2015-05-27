@@ -148,10 +148,188 @@ describe('action()', function () {
 
             server.action('generate', { generate: 'id' });
 
+            server.methods.generate('name:steve', function (err, result) {
+
+                expect(result).to.deep.equal({ id: 1, name: 'steve' });
+                done();
+            });
+        });
+    });
+
+    it('maps an action to a server method (object additions)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: 1, name: message.name });
+            });
+
+            server.action('generate', { generate: 'id' });
+
             server.methods.generate({ name: 'steve' }, function (err, result) {
 
                 expect(result).to.deep.equal({ id: 1, name: 'steve' });
                 done();
+            });
+        });
+    });
+
+    it('maps an action to a server method (cached additions)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var id = 0;
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: ++id, name: message.name });
+            });
+
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+
+            server.start(function () {
+
+                server.methods.generate('name:steve', function (err, result1) {
+
+                    expect(result1.id).to.equal(1);
+
+                    server.methods.generate('name:steve', function (err, result2) {
+
+                        expect(result1.id).to.equal(1);
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    it('maps an action to a server method (cached object additions)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var id = 0;
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: ++id, name: message.name });
+            });
+
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+
+            server.start(function () {
+
+                server.methods.generate({ name: 'steve' }, function (err, result1) {
+
+                    expect(result1.id).to.equal(1);
+
+                    server.methods.generate({ name: 'steve' }, function (err, result2) {
+
+                        expect(result1.id).to.equal(1);
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    it('maps an action to a server method (cached object additions with multiple keys)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var id = 0;
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: ++id, name: message.pre + message.name });
+            });
+
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+
+            server.start(function () {
+
+                server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result1) {
+
+                    expect(result1.id).to.equal(1);
+
+                    server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result2) {
+
+                        expect(result1.id).to.equal(1);
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    it('maps an action to a server method (cached additions over both string and object)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var id = 0;
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: ++id, name: message.pre + message.name });
+            });
+
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+
+            server.start(function () {
+
+                server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result1) {
+
+                    expect(result1.id).to.equal(1);
+
+                    server.methods.generate('name:steve,pre:mr', function (err, result2) {
+
+                        expect(result1.id).to.equal(1);
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
+    it('does not cache object additions with nested objects', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var id = 0;
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { id: ++id });
+            });
+
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+
+            server.start(function () {
+
+                server.methods.generate({ price: { a: 'b' } }, function (err, result) {
+
+                    expect(result).to.not.exist();
+                    done();
+                });
             });
         });
     });
@@ -245,7 +423,7 @@ describe('Replies', function () {
 
                 server.inject('/', function (res) {
 
-                    expect(res.result).to.equal('<div>\r\n    <h1>1</h1>\r\n    <h2>john</h2>\r\n    <h3>hello!</h3>\r\n</div>\r\n');
+                    expect(res.result).to.equal('<div>\n    <h1>1</h1>\n    <h2>john</h2>\n    <h3>hello!</h3>\n</div>\n');
                     done();
                 });
             });
@@ -393,7 +571,7 @@ describe('Handlers', function () {
 
                 server.inject('/', function (res) {
 
-                    expect(res.result).to.equal('<div>\r\n    <h1>1</h1>\r\n    <h2>john</h2>\r\n    <h3>hello!</h3>\r\n</div>\r\n');
+                    expect(res.result).to.equal('<div>\n    <h1>1</h1>\n    <h2>john</h2>\n    <h3>hello!</h3>\n</div>\n');
                     done();
                 });
             });
