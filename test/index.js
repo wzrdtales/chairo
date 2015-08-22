@@ -92,7 +92,7 @@ describe('action()', function () {
                 return next(null, { id: ++id });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -193,7 +193,7 @@ describe('action()', function () {
                 return next(null, { id: ++id, name: message.name });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -225,7 +225,7 @@ describe('action()', function () {
                 return next(null, { id: ++id, name: message.name });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -257,7 +257,7 @@ describe('action()', function () {
                 return next(null, { id: ++id, name: message.pre + message.name });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -289,7 +289,7 @@ describe('action()', function () {
                 return next(null, { id: ++id, name: message.pre + message.name });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -321,7 +321,7 @@ describe('action()', function () {
                 return next(null, { id: ++id });
             });
 
-            server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+            server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
             server.start(function () {
 
@@ -385,7 +385,7 @@ describe('Replies', function () {
 
             var server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
 
                 expect(err).to.not.exist();
 
@@ -433,7 +433,7 @@ describe('Replies', function () {
 
             var server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
 
                 expect(err).to.not.exist();
 
@@ -482,7 +482,7 @@ describe('Handlers', function () {
 
             var server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
 
                 expect(err).to.not.exist();
 
@@ -533,7 +533,7 @@ describe('Handlers', function () {
 
             var server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
 
                 expect(err).to.not.exist();
 

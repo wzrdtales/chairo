@@ -99,7 +99,7 @@ server.register(Chairo, function (err) {
 
 	// Map action to a hapi server method
 
-    server.action('generate', 'generate:id', { cache: { expiresIn: 1000 } });
+    server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
 	// Start hapi server (starts cache)
 

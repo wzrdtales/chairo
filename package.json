@@ -19,15 +19,16 @@
     "items": "1.x.x",
     "joi": "6.x.x",
     "jsonic": "0.1.x",
-    "seneca": "0.6.x"
+    "seneca": "0.6.x",
+    "vision": "^3.0.0"
   },
   "peerDependencies": {
-    "hapi": "^8.5.x"
+    "hapi": ">=8.5.0"
   },
   "devDependencies": {
     "code": "1.x.x",
     "handlebars": "2.x.x",
-    "hapi": "8.x.x",
+    "hapi": ">=8.5.0",
     "lab": "5.x.x"
   },
   "scripts": {
