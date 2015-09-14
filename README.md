@@ -6,7 +6,7 @@ for [hapi](https://github.com/hapijs/hapi). The plugin integrates the **Seneca**
 
 [![Build Status](https://secure.travis-ci.org/hapijs/chairo.png)](http://travis-ci.org/hapijs/chairo)
 
-Lead Maintainer - [Eran Hammer](https://github.com/hueniverse)
+Lead Maintainer - [Wyatt Preul](https://github.com/geek)
 
 ### Usage
 
@@ -60,7 +60,7 @@ server.route({
 		// Invoke a Seneca action using the request decoration
 
 		request.seneca.act({ generate: 'id' }, function (err, result) {
-		
+
 			if (err) {
 				return reply(err);
 			}
