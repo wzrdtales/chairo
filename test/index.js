@@ -69,9 +69,9 @@ describe('action()', function () {
 
                 expect(result).to.deep.equal({ id: 1 });
 
-                server.methods.generate(function (err, result) {
+                server.methods.generate(function (err, result2) {
 
-                    expect(result).to.deep.equal({ id: 2 });
+                    expect(result2).to.deep.equal({ id: 2 });
                     done();
                 });
             });
@@ -369,9 +369,9 @@ describe('Replies', function () {
                     expect(res.statusCode).to.equal(200);
                     expect(res.result).to.deep.equal({ id: 1 });
 
-                    server.inject('/', function (res) {
+                    server.inject('/', function (res2) {
 
-                        expect(res.statusCode).to.equal(500);
+                        expect(res2.statusCode).to.equal(500);
                         done();
                     });
                 });
