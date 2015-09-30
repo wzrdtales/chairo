@@ -1,7 +1,6 @@
 // Load modules
 
 var Code = require('code');
-var Handlebars = require('handlebars');
 var Hapi = require('hapi');
 var Lab = require('lab');
 var Chairo = require('../');
