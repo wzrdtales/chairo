@@ -19,11 +19,11 @@
     "items": "1.x.x",
     "joi": "6.x.x",
     "jsonic": "0.1.x",
-    "seneca": "0.6.x",
     "vision": "3.x.x"
   },
   "peerDependencies": {
-    "hapi": ">=8.5.0"
+    "hapi": ">=8.5.0",
+    "seneca": ">=0.7.x"
   },
   "devDependencies": {
     "code": "1.x.x",
