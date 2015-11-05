@@ -1,7 +1,7 @@
 {
   "name": "chairo",
   "description": "Seneca micro-services plugin for hapi",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": "git://github.com/hapijs/chairo",
   "main": "lib/index.js",
   "keywords": [
@@ -23,12 +23,12 @@
     "vision": "3.x.x"
   },
   "peerDependencies": {
-    "hapi": ">=8.5.0"
+    "hapi": "8.5.0 - 9.4.2"
   },
   "devDependencies": {
     "code": "1.x.x",
     "handlebars": "4.x.x",
-    "hapi": ">=8.5.0",
+    "hapi": "8.5.0 - 9.4.2",
     "lab": "6.x.x"
   },
   "scripts": {

@@ -119,21 +119,21 @@ describe('action()', function () {
 
             server.seneca.add({ generate: 'id' }, function (message, next) {
 
-                return next(null, { result: message.samples.values[0] * message.samples.values[1] });
+                return next(null, { result: message.samples.readings.values[0] * message.samples.readings.values[1] });
             });
 
             server.action('generate', { generate:'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: function (message) {
 
-                return 'id' +  message.samples.values[0] + ':' +  message.samples.values[1];
+                return 'id' +  message.samples.readings.values[0] + ':' +  message.samples.readings.values[1];
             } });
 
             server.start(function () {
 
-                server.methods.generate({ samples: { values: [2, 3] } }, function (err, result1) {
+                server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err, result1) {
 
                     expect(result1).to.deep.equal({ result: 6 });
 
-                    server.methods.generate({ samples: { values: [2,3] } }, function (err, result2) {
+                    server.methods.generate({ samples: { readings: { values: [2,3] } } }, function (err, result2) {
 
                         expect(result2).to.deep.equal({ result: 6 });
                         done();
