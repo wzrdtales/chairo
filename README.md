@@ -109,7 +109,7 @@ server.register(Chairo, function (err) {
 
     // Map action to a hapi server method with custom generateKey method
 
-    server.action('average', 'calc:average', { cache: { expiresIn: 1000, generateTimeout: 3000 } }, generateKey: function(message){
+    server.action('average', 'calc:average', { cache: { expiresIn: 1000, generateTimeout: 3000 } }, generateKey: function (message) {
 
         return 'average-' + message.samples.dataset.values[0] + ':' + message.samples.dataset.values[1];
     });

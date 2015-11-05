@@ -122,7 +122,7 @@ describe('action()', function () {
                 return next(null, { result: message.samples.readings.values[0] * message.samples.readings.values[1] });
             });
 
-            server.action('generate', { generate:'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: function (message) {
+            server.action('generate', { generate: 'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: function (message) {
 
                 return 'id' +  message.samples.readings.values[0] + ':' +  message.samples.readings.values[1];
             } });
@@ -131,10 +131,12 @@ describe('action()', function () {
 
                 server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err, result1) {
 
+                    expect(err).to.not.exist();
                     expect(result1).to.deep.equal({ result: 6 });
 
-                    server.methods.generate({ samples: { readings: { values: [2,3] } } }, function (err, result2) {
+                    server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err2, result2) {
 
+                        expect(err2).to.not.exist();
                         expect(result2).to.deep.equal({ result: 6 });
                         done();
                     });
