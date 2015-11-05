@@ -109,6 +109,42 @@ describe('action()', function () {
         });
     });
 
+    it('maps an action to a server method (cached with custom generateKey)', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            server.seneca.add({ generate: 'id' }, function (message, next) {
+
+                return next(null, { result: message.samples.readings.values[0] * message.samples.readings.values[1] });
+            });
+
+            server.action('generate', { generate: 'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: function (message) {
+
+                return 'id' +  message.samples.readings.values[0] + ':' +  message.samples.readings.values[1];
+            } });
+
+            server.start(function () {
+
+                server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err, result1) {
+
+                    expect(err).to.not.exist();
+                    expect(result1).to.deep.equal({ result: 6 });
+
+                    server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err2, result2) {
+
+                        expect(err2).to.not.exist();
+                        expect(result2).to.deep.equal({ result: 6 });
+                        done();
+                    });
+                });
+            });
+        });
+    });
+
     it('maps an action to a server method (object pattern)', function (done) {
 
         var server = new Hapi.Server();

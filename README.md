@@ -80,6 +80,7 @@ Maps a **Seneca** action pattern to a **hapi**
 - `pattern` - the **Seneca** action pattern (e.g. `'generate:id'` or `{ generate: 'id' }`) to map.
 - `options` - optional settings options where:
     - `cache` - method caching options (same as the name used in `server.method()`).
+    - `generateKey` - method generating custom cache key (same as the name used in `server.method()`).
 
 ```js
 var Chairo = require('chairo');
@@ -97,9 +98,21 @@ server.register(Chairo, function (err) {
         return next(null, { id: ++id });
     });
 
+    server.seneca.add({ calc: 'average' }, function (message, next) {
+
+        return next(null, { average: ( message.samples.dataset.values[0] + message.samples.dataset.values[0] ) / 2 });
+    });
+
 	// Map action to a hapi server method
 
     server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
+
+    // Map action to a hapi server method with custom generateKey method
+
+    server.action('average', 'calc:average', { cache: { expiresIn: 1000, generateTimeout: 3000 } }, generateKey: function (message) {
+
+        return 'average-' + message.samples.dataset.values[0] + ':' + message.samples.dataset.values[1];
+    });
 
 	// Start hapi server (starts cache)
 
@@ -114,6 +127,14 @@ server.register(Chairo, function (err) {
             server.methods.generate(function (err, result2) {
 
 				// result1 === result2 (cached)
+                
+                server.methods.average({ samples: { dataset: values: [2, 3] } }, function (err, avg1) {
+
+                    server.methods.average({ samples: { dataset: values: [2, 3] } }, function (err, avg2) {
+
+                        // avg1 == avg2 (cached)
+                    });
+                });
             });
         });
     });
