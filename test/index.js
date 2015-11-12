@@ -29,7 +29,7 @@ describe('register()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -54,7 +54,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -83,7 +83,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -115,7 +115,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -151,7 +151,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -174,7 +174,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -197,7 +197,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -220,7 +220,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -252,7 +252,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -284,7 +284,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -316,7 +316,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -348,7 +348,7 @@ describe('action()', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -378,7 +378,7 @@ describe('Request', () => {
 
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+        server.register({ register: Chairo }, (err) => {
 
             expect(err).to.not.exist();
 
@@ -406,7 +406,7 @@ describe('Replies', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+            server.register({ register: Chairo }, (err) => {
 
                 expect(err).to.not.exist();
 
@@ -448,7 +448,7 @@ describe('Replies', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
+            server.register([{ register: Chairo }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
@@ -496,7 +496,7 @@ describe('Replies', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
+            server.register([{ register: Chairo }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
@@ -545,7 +545,7 @@ describe('Handlers', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
+            server.register([{ register: Chairo }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
@@ -569,7 +569,7 @@ describe('Handlers', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
+            server.register({ register: Chairo }, (err) => {
 
                 expect(err).to.not.exist();
 
@@ -596,7 +596,7 @@ describe('Handlers', () => {
 
             const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
+            server.register([{ register: Chairo }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
