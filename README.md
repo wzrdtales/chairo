@@ -29,7 +29,7 @@ server.connection();
 
 // Register plugin
 
-server.register({ register: Chairo, options: senecaOptions }, function (err) {
+server.register({ register: Chairo }, function (err) {
 
 	// Add a Seneca action
 
