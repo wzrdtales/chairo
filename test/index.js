@@ -1,43 +1,45 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Hapi = require('hapi');
-var Lab = require('lab');
-var Chairo = require('../');
+const Code = require('code');
+const Hapi = require('hapi');
+const Lab = require('lab');
+const Chairo = require('../');
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.describe;
-var it = lab.it;
-var expect = Code.expect;
+const lab = exports.lab = Lab.script();
+const describe = lab.describe;
+const it = lab.it;
+const expect = Code.expect;
 
 
 process.setMaxListeners(0);             // Remove warning caused by creating multiple framework instances
 
 
-describe('register()', function () {
+describe('register()', () => {
 
-    it('exposes a seneca instance', function (done) {
+    it('exposes a seneca instance', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id });
             });
 
-            server.seneca.act({ generate: 'id' }, function (err, result) {
+            server.seneca.act({ generate: 'id' }, (err, result) => {
 
                 expect(result).to.deep.equal({ id: 1 });
                 done();
@@ -46,29 +48,29 @@ describe('register()', function () {
     });
 });
 
-describe('action()', function () {
+describe('action()', () => {
 
-    it('maps an action to a server method', function (done) {
+    it('maps an action to a server method', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id });
             });
 
             server.action('generate', 'generate:id');
 
-            server.methods.generate(function (err, result) {
+            server.methods.generate((err, result) => {
 
                 expect(result).to.deep.equal({ id: 1 });
 
-                server.methods.generate(function (err, result2) {
+                server.methods.generate((err, result2) => {
 
                     expect(result2).to.deep.equal({ id: 2 });
                     done();
@@ -77,29 +79,29 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached)', function (done) {
+    it('maps an action to a server method (cached)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate(function (err, result1) {
+                server.methods.generate((err, result1) => {
 
                     expect(result1).to.deep.equal({ id: 1 });
 
-                    server.methods.generate(function (err, result2) {
+                    server.methods.generate((err, result2) => {
 
                         expect(result2).to.deep.equal({ id: 1 });
                         done();
@@ -109,32 +111,32 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached with custom generateKey)', function (done) {
+    it('maps an action to a server method (cached with custom generateKey)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { result: message.samples.readings.values[0] * message.samples.readings.values[1] });
             });
 
-            server.action('generate', { generate: 'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: function (message) {
+            server.action('generate', { generate: 'id' }, { cache: { expiresIn: 1000, generateTimeout: 3000 }, generateKey: (message) => {
 
                 return 'id' +  message.samples.readings.values[0] + ':' +  message.samples.readings.values[1];
             } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err, result1) {
+                server.methods.generate({ samples: { readings: { values: [2, 3] } } }, (err, result1) => {
 
                     expect(err).to.not.exist();
                     expect(result1).to.deep.equal({ result: 6 });
 
-                    server.methods.generate({ samples: { readings: { values: [2, 3] } } }, function (err2, result2) {
+                    server.methods.generate({ samples: { readings: { values: [2, 3] } } }, (err2, result2) => {
 
                         expect(err2).to.not.exist();
                         expect(result2).to.deep.equal({ result: 6 });
@@ -145,22 +147,22 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (object pattern)', function (done) {
+    it('maps an action to a server method (object pattern)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: 1 });
             });
 
             server.action('generate', { generate: 'id' });
 
-            server.methods.generate(function (err, result) {
+            server.methods.generate((err, result) => {
 
                 expect(result).to.deep.equal({ id: 1 });
                 done();
@@ -168,22 +170,22 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (additions)', function (done) {
+    it('maps an action to a server method (additions)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: 1, name: message.name });
             });
 
             server.action('generate', { generate: 'id' });
 
-            server.methods.generate('name:steve', function (err, result) {
+            server.methods.generate('name:steve', (err, result) => {
 
                 expect(result).to.deep.equal({ id: 1, name: 'steve' });
                 done();
@@ -191,22 +193,22 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (object additions)', function (done) {
+    it('maps an action to a server method (object additions)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: 1, name: message.name });
             });
 
             server.action('generate', { generate: 'id' });
 
-            server.methods.generate({ name: 'steve' }, function (err, result) {
+            server.methods.generate({ name: 'steve' }, (err, result) => {
 
                 expect(result).to.deep.equal({ id: 1, name: 'steve' });
                 done();
@@ -214,29 +216,29 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached additions)', function (done) {
+    it('maps an action to a server method (cached additions)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id, name: message.name });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate('name:steve', function (err, result1) {
+                server.methods.generate('name:steve', (err, result1) => {
 
                     expect(result1.id).to.equal(1);
 
-                    server.methods.generate('name:steve', function (err, result2) {
+                    server.methods.generate('name:steve', (err, result2) => {
 
                         expect(result1.id).to.equal(1);
                         done();
@@ -246,29 +248,29 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached object additions)', function (done) {
+    it('maps an action to a server method (cached object additions)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id, name: message.name });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate({ name: 'steve' }, function (err, result1) {
+                server.methods.generate({ name: 'steve' }, (err, result1) => {
 
                     expect(result1.id).to.equal(1);
 
-                    server.methods.generate({ name: 'steve' }, function (err, result2) {
+                    server.methods.generate({ name: 'steve' }, (err, result2) => {
 
                         expect(result1.id).to.equal(1);
                         done();
@@ -278,29 +280,29 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached object additions with multiple keys)', function (done) {
+    it('maps an action to a server method (cached object additions with multiple keys)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id, name: message.pre + message.name });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result1) {
+                server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result1) => {
 
                     expect(result1.id).to.equal(1);
 
-                    server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result2) {
+                    server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result2) => {
 
                         expect(result1.id).to.equal(1);
                         done();
@@ -310,29 +312,29 @@ describe('action()', function () {
         });
     });
 
-    it('maps an action to a server method (cached additions over both string and object)', function (done) {
+    it('maps an action to a server method (cached additions over both string and object)', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id, name: message.pre + message.name });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate({ name: 'steve', pre: 'mr' }, function (err, result1) {
+                server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result1) => {
 
                     expect(result1.id).to.equal(1);
 
-                    server.methods.generate('name:steve,pre:mr', function (err, result2) {
+                    server.methods.generate('name:steve,pre:mr', (err, result2) => {
 
                         expect(result1.id).to.equal(1);
                         done();
@@ -342,25 +344,25 @@ describe('action()', function () {
         });
     });
 
-    it('does not cache object additions with nested objects', function (done) {
+    it('does not cache object additions with nested objects', (done) => {
 
-        var server = new Hapi.Server();
+        const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+        server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
             expect(err).to.not.exist();
 
-            var id = 0;
-            server.seneca.add({ generate: 'id' }, function (message, next) {
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
 
                 return next(null, { id: ++id });
             });
 
             server.action('generate', 'generate:id', { cache: { expiresIn: 1000, generateTimeout: 3000 } });
 
-            server.start(function () {
+            server.start(() => {
 
-                server.methods.generate({ price: { a: 'b' } }, function (err, result) {
+                server.methods.generate({ price: { a: 'b' } }, (err, result) => {
 
                     expect(result).to.not.exist();
                     done();
@@ -370,20 +372,20 @@ describe('action()', function () {
     });
 });
 
-describe('Replies', function () {
+describe('Replies', () => {
 
-    describe('act()', function () {
+    describe('act()', () => {
 
-        it('returns act result', function (done) {
+        it('returns act result', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
                 expect(err).to.not.exist();
 
-                var id = 0;
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                let id = 0;
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     if (++id === 1) {
                         return next(null, { id: 1 });
@@ -392,19 +394,19 @@ describe('Replies', function () {
                     return next(new Error('failed'));
                 });
 
-                var handler = function (request, reply) {
+                const handler = function (request, reply) {
 
                     return reply.act({ generate: 'id' });
                 };
 
                 server.route({ method: 'GET', path: '/', handler: handler });
 
-                server.inject('/', function (res) {
+                server.inject('/', (res) => {
 
                     expect(res.statusCode).to.equal(200);
                     expect(res.result).to.deep.equal({ id: 1 });
 
-                    server.inject('/', function (res2) {
+                    server.inject('/', (res2) => {
 
                         expect(res2.statusCode).to.equal(500);
                         done();
@@ -414,22 +416,22 @@ describe('Replies', function () {
         });
     });
 
-    describe('compose()', function () {
+    describe('compose()', () => {
 
-        it('renders view using multiple actions', function (done) {
+        it('renders view using multiple actions', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     return next(null, { id: 1 });
                 });
 
-                server.seneca.add({ record: 'user' }, function (message, next) {
+                server.seneca.add({ record: 'user' }, (message, next) => {
 
                     return next(null, { name: message.name });
                 });
@@ -442,9 +444,9 @@ describe('Replies', function () {
                 server.route({
                     method: 'GET',
                     path: '/',
-                    handler: function (request, reply) {
+                    handler: (request, reply) => {
 
-                        var context = {
+                        const context = {
                             id$: 'generate:id',
                             user$: { record: 'user', name: 'john' },
                             general: {
@@ -456,7 +458,7 @@ describe('Replies', function () {
                     }
                 });
 
-                server.inject('/', function (res) {
+                server.inject('/', (res) => {
 
                     expect(res.result).to.equal('<div>\n    <h1>1</h1>\n    <h2>john</h2>\n    <h3>hello!</h3>\n</div>\n');
                     done();
@@ -464,15 +466,15 @@ describe('Replies', function () {
             });
         });
 
-        it('errors on missing action', function (done) {
+        it('errors on missing action', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     return next(null, { id: 1 });
                 });
@@ -485,9 +487,9 @@ describe('Replies', function () {
                 server.route({
                     method: 'GET',
                     path: '/',
-                    handler: function (request, reply) {
+                    handler: (request, reply) => {
 
-                        var context = {
+                        const context = {
                             id$: 'generate:id',
                             user$: { record: 'user', name: 'john' },
                             general: {
@@ -499,7 +501,7 @@ describe('Replies', function () {
                     }
                 });
 
-                server.inject('/', function (res) {
+                server.inject('/', (res) => {
 
                     expect(res.statusCode).to.equal(500);
                     done();
@@ -509,26 +511,26 @@ describe('Replies', function () {
     });
 });
 
-describe('Handlers', function () {
+describe('Handlers', () => {
 
-    describe('act()', function () {
+    describe('act()', () => {
 
-        it('replies with act result', function (done) {
+        it('replies with act result', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     return next(null, { id: 1 });
                 });
 
                 server.route({ method: 'GET', path: '/', handler: { act: { generate: 'id' } } });
 
-                server.inject('/', function (res) {
+                server.inject('/', (res) => {
 
                     expect(res.statusCode).to.equal(200);
                     expect(res.result).to.deep.equal({ id: 1 });
@@ -537,22 +539,22 @@ describe('Handlers', function () {
             });
         });
 
-        it('replies with act result (template string)', function (done) {
+        it('replies with act result (template string)', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+            server.register({ register: Chairo, options: { log: 'silent' } }, (err) => {
 
                 expect(err).to.not.exist();
 
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     return next(null, { id: 1 });
                 });
 
                 server.route({ method: 'GET', path: '/{type}', handler: { act: 'generate:{params.type}' } });
 
-                server.inject('/id', function (res) {
+                server.inject('/id', (res) => {
 
                     expect(res.statusCode).to.equal(200);
                     expect(res.result).to.deep.equal({ id: 1 });
@@ -562,22 +564,22 @@ describe('Handlers', function () {
         });
     });
 
-    describe('compose()', function () {
+    describe('compose()', () => {
 
-        it('renders view using multiple actions', function (done) {
+        it('renders view using multiple actions', (done) => {
 
-            var server = new Hapi.Server();
+            const server = new Hapi.Server();
             server.connection();
-            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], function (err) {
+            server.register([{ register: Chairo, options: { log: 'silent' } }, require('vision')], (err) => {
 
                 expect(err).to.not.exist();
 
-                server.seneca.add({ generate: 'id' }, function (message, next) {
+                server.seneca.add({ generate: 'id' }, (message, next) => {
 
                     return next(null, { id: 1 });
                 });
 
-                server.seneca.add({ record: 'user' }, function (message, next) {
+                server.seneca.add({ record: 'user' }, (message, next) => {
 
                     return next(null, { name: message.name });
                 });
@@ -604,7 +606,7 @@ describe('Handlers', function () {
                     }
                 });
 
-                server.inject('/', function (res) {
+                server.inject('/', (res) => {
 
                     expect(res.result).to.equal('<div>\n    <h1>1</h1>\n    <h2>john</h2>\n    <h3>hello!</h3>\n</div>\n');
                     done();
