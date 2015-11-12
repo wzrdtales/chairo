@@ -334,6 +334,32 @@ describe('action()', function () {
     });
 });
 
+describe('Request', function () {
+
+    it('has access to seneca delegate with raw req/res', function (done) {
+
+        var server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { log: 'silent' } }, function (err) {
+
+            expect(err).to.not.exist();
+
+            var handler = function (request, reply) {
+
+                return reply(request.seneca);
+            };
+
+            server.route({ method: 'GET', path: '/', handler: handler });
+
+            server.inject('/', function (res) {
+
+                expect(res.result.fixedargs.req$.url).to.equal('/');
+                done();
+            });
+        });
+    });
+});
+
 describe('Replies', function () {
 
     describe('act()', function () {
