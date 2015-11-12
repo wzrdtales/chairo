@@ -14,7 +14,11 @@ Lead Maintainer - [Wyatt Preul](https://github.com/geek)
 
 **chairo** is registered with a **hapi** server using the `server.register()` method. Once
 registered it decorates the `server` object with a reference to the `seneca` object initialized
-using the provided plugin options:
+using the provided plugin options. Default plugin options:
+
+ * `log`: `silent`
+ * `actcache`: 
+     * `active`: `false`
 
 ```js
 var Chairo = require('chairo');
@@ -22,10 +26,6 @@ var Hapi = require('hapi');
 
 var server = new Hapi.Server();
 server.connection();
-
-// Pass options to the Seneca constructor
-
-var senecaOptions = { log: 'silent' };
 
 // Register plugin
 
