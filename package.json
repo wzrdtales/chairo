@@ -23,7 +23,7 @@
     "vision": "3.x.x"
   },
   "peerDependencies": {
-    "hapi": "8.5.0 - 9.x.x"
+    "hapi": "11.x.x"
   },
   "devDependencies": {
     "code": "2.x.x",
