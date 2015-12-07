@@ -7,8 +7,7 @@ for [hapi](https://github.com/hapijs/hapi). The plugin integrates the **Seneca**
 [![NPM Version](https://img.shields.io/npm/v/chairo.svg)](https://npmjs.org/package/chairo)
 [![Build Status](https://secure.travis-ci.org/hapijs/chairo.png)](http://travis-ci.org/hapijs/chairo)
 [![Coverage Status](https://coveralls.io/repos/hapijs/chairo/badge.svg?branch=master&service=github)](https://coveralls.io/github/hapijs/chairo?branch=master)
-[![Dependency Status](https://david-dm.org/hapijs/chairo.svg)](https://david-dm.org/hapijs/chairo)
-[![bitHound Overalll Score](https://www.bithound.io/github/hapijs/chairo/badges/score.svg)](https://www.bithound.io/github/hapijs/chairo)
+[![bitHound Overall Score](https://www.bithound.io/github/hapijs/chairo/badges/score.svg)](https://www.bithound.io/github/hapijs/chairo)
 
 Lead Maintainer - [Wyatt Preul](https://github.com/geek)
 
