@@ -384,14 +384,14 @@ describe('Request', () => {
 
             const handler = function (request, reply) {
 
-                return reply(request.seneca);
+                return reply(request.seneca.fixedargs.req$.url.path);
             };
 
             server.route({ method: 'GET', path: '/', handler: handler });
 
             server.inject('/', (res) => {
 
-                expect(res.result.fixedargs.req$.url).to.equal('/');
+                expect(res.result).to.equal('/');
                 done();
             });
         });
