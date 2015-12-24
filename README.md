@@ -1,13 +1,14 @@
-#chairo
+# chairo
+
+[![npm version][npm-badge]][npm-url]
+[![Build Status][travis-badge]][travis-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
+[![Dependency Status][david-badge]][david-url]
+[![bitHound Overall Score][bithound-badge]][bithound-url]
 
 **chairo** ("happy" in ancient Greek: χαίρω) is a [**Seneca**](http://senecajs.org/) micro-services plugin
 for [hapi](https://github.com/hapijs/hapi). The plugin integrates the **Seneca** functionality into
 **hapi** and provide tools to map its actions to server methods and views for easy access.
-
-[![NPM Version](https://img.shields.io/npm/v/chairo.svg)](https://npmjs.org/package/chairo)
-[![Build Status](https://secure.travis-ci.org/hapijs/chairo.png)](http://travis-ci.org/hapijs/chairo)
-[![Coverage Status](https://coveralls.io/repos/hapijs/chairo/badge.svg?branch=master&service=github)](https://coveralls.io/github/hapijs/chairo?branch=master)
-[![bitHound Overall Score](https://www.bithound.io/github/hapijs/chairo/badges/score.svg)](https://www.bithound.io/github/hapijs/chairo)
 
 Lead Maintainer - [Wyatt Preul](https://github.com/geek)
 
@@ -20,7 +21,7 @@ registered it decorates the `server` object with a reference to the `seneca` obj
 using the provided plugin options. Default plugin options:
 
  * `log`: `silent`
- * `actcache`: 
+ * `actcache`:
      * `active`: `false`
 
 ```js
@@ -130,7 +131,7 @@ server.register(Chairo, function (err) {
             server.methods.generate(function (err, result2) {
 
 				// result1 === result2 (cached)
-                
+
                 server.methods.average({ samples: { dataset: values: [2, 3] } }, function (err, avg1) {
 
                     server.methods.average({ samples: { dataset: values: [2, 3] } }, function (err, avg2) {
@@ -282,3 +283,14 @@ server.route({
     }
 });
 ```
+
+[npm-badge]: https://badge.fury.io/js/chairo.svg
+[npm-url]: https://badge.fury.io/js/chairo
+[travis-badge]: https://api.travis-ci.org/hapijs/chairo.svg
+[travis-url]: https://travis-ci.org/hapijs/chairo
+[coveralls-badge]:https://coveralls.io/repos/hapijs/chairo/badge.svg?branch=master&service=github
+[coveralls-url]: https://coveralls.io/github/hapijs/chairo?branch=master
+[david-badge]: https://david-dm.org/hapijs/chairo.svg
+[david-url]: https://david-dm.org/hapijs/chairo
+[bithound-badge]: https://www.bithound.io/github/hapijs/chairo/badges/score.svg
+[bithound-url]: https://www.bithound.io/github/hapijs/chairo
