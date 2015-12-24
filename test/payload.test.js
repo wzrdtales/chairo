@@ -43,7 +43,7 @@ describe('Handlers', () => {
 
                 expect(res.statusCode).to.equal(200);
                 expect(res.result).to.deep.equal({ id: 1 });
-                seneca.close();
+                server.seneca.close();
                 done();
             });
         });
@@ -70,9 +70,39 @@ describe('Handlers', () => {
 
                 expect(res.statusCode).to.equal(200);
                 expect(res.result).to.deep.equal({ id: 1 });
-                seneca.close();
+                server.seneca.close();
                 done();
             });
+        });
+    });
+
+    it('load custom web plugin if provided in options', (done) => {
+
+        const server = new Hapi.Server();
+        server.connection();
+        server.register([{ register: Chairo, options: {
+            someOption: 'someValue',
+            webPlugin: function (pluginOptions) {
+
+                return {
+                    name: 'web',
+                    export: function () {},
+                    exportmap: {
+                        hapi: function (srv, options, next) {
+
+                            expect(srv);
+                            expect(options);
+                            expect(options.someOption).to.equal('someValue');
+                            server.seneca.close();
+                            done();
+                        }
+                    }
+                };
+            }
+        } }, Vision], (err) => {
+
+            expect(err).to.not.exist();
+
         });
     });
 
