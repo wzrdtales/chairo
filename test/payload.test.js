@@ -106,4 +106,33 @@ describe('Handlers', () => {
         });
     });
 
+    it('if options default_plugin.web set to false then do not execute export hapi', (done) => {
+
+        const server = new Hapi.Server();
+        server.connection();
+        server.register([{ register: Chairo, options: {
+            'default_plugins': {
+                'web' : false
+            },
+            webPlugin: function (pluginOptions) {
+                return {
+                    name: 'web',
+                    export: function () {},
+                    exportmap: {
+                        hapi: function (srv, options, next) {
+
+                            throw new Error('This should not happen...')
+                        }
+                    }
+                };
+            }
+        } }, Vision], (err) => {
+
+            expect(err).to.not.exist();
+            server.seneca.close();
+            done();
+
+        });
+    });
+
 });
