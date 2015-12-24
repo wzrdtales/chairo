@@ -82,7 +82,7 @@ describe('Handlers', () => {
         server.connection();
         server.register([{ register: Chairo, options: {
             someOption: 'someValue',
-            webPlugin: function (pluginOptions) {
+            webPlugin: function () {
 
                 return {
                     name: 'web',
@@ -114,12 +114,12 @@ describe('Handlers', () => {
             'default_plugins': {
                 'web' : false
             },
-            webPlugin: function (pluginOptions) {
+            webPlugin: function () {
                 return {
                     name: 'web',
                     export: function () {},
                     exportmap: {
-                        hapi: function (srv, options, next) {
+                        hapi: function () {
 
                             throw new Error('This should not happen...')
                         }
