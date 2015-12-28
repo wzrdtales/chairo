@@ -2,7 +2,6 @@
 
 [![npm version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
-[![Coverage Status][coveralls-badge]][coveralls-url]
 
 **chairo** ("happy" in ancient Greek: χαίρω) is a [**Seneca**](http://senecajs.org/) micro-services plugin
 for [hapi](https://github.com/hapijs/hapi). The plugin integrates the **Seneca** functionality into
@@ -286,5 +285,3 @@ server.route({
 [npm-url]: https://badge.fury.io/js/chairo
 [travis-badge]: https://api.travis-ci.org/hapijs/chairo.svg
 [travis-url]: https://travis-ci.org/hapijs/chairo
-[coveralls-badge]:https://coveralls.io/repos/hapijs/chairo/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/github/hapijs/chairo?branch=master
