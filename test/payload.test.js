@@ -131,8 +131,6 @@ describe('Handlers', () => {
             expect(err).to.not.exist();
             server.seneca.close();
             done();
-
         });
     });
-
 });
