@@ -82,7 +82,6 @@ describe('Handlers', () => {
 
             return {
                 name: 'web',
-                export: function () {},
                 exportmap: {
                     hapi: function (server, options, next) {
 
