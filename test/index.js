@@ -41,6 +41,7 @@ describe('register()', () => {
 
             server.seneca.act({ generate: 'id' }, (err, result) => {
 
+                expect(err).to.not.exist();
                 expect(result).to.deep.equal({ id: 1 });
                 done();
             });
@@ -68,10 +69,12 @@ describe('action()', () => {
 
             server.methods.generate((err, result) => {
 
+                expect(err).to.not.exist();
                 expect(result).to.deep.equal({ id: 1 });
 
                 server.methods.generate((err, result2) => {
 
+                    expect(err).to.not.exist();
                     expect(result2).to.deep.equal({ id: 2 });
                     done();
                 });
@@ -99,10 +102,12 @@ describe('action()', () => {
 
                 server.methods.generate((err, result1) => {
 
+                    expect(err).to.not.exist();
                     expect(result1).to.deep.equal({ id: 1 });
 
                     server.methods.generate((err, result2) => {
 
+                        expect(err).to.not.exist();
                         expect(result2).to.deep.equal({ id: 1 });
                         done();
                     });
@@ -164,6 +169,7 @@ describe('action()', () => {
 
             server.methods.generate((err, result) => {
 
+                expect(err).to.not.exist();
                 expect(result).to.deep.equal({ id: 1 });
                 done();
             });
@@ -187,6 +193,7 @@ describe('action()', () => {
 
             server.methods.generate('name:steve', (err, result) => {
 
+                expect(err).to.not.exist();
                 expect(result).to.deep.equal({ id: 1, name: 'steve' });
                 done();
             });
@@ -210,6 +217,7 @@ describe('action()', () => {
 
             server.methods.generate({ name: 'steve' }, (err, result) => {
 
+                expect(err).to.not.exist();
                 expect(result).to.deep.equal({ id: 1, name: 'steve' });
                 done();
             });
@@ -236,10 +244,12 @@ describe('action()', () => {
 
                 server.methods.generate('name:steve', (err, result1) => {
 
+                    expect(err).to.not.exist();
                     expect(result1.id).to.equal(1);
 
                     server.methods.generate('name:steve', (err, result2) => {
 
+                        expect(err).to.not.exist();
                         expect(result1.id).to.equal(1);
                         done();
                     });
@@ -268,10 +278,12 @@ describe('action()', () => {
 
                 server.methods.generate({ name: 'steve' }, (err, result1) => {
 
+                    expect(err).to.not.exist();
                     expect(result1.id).to.equal(1);
 
                     server.methods.generate({ name: 'steve' }, (err, result2) => {
 
+                        expect(err).to.not.exist();
                         expect(result1.id).to.equal(1);
                         done();
                     });
@@ -300,10 +312,12 @@ describe('action()', () => {
 
                 server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result1) => {
 
+                    expect(err).to.not.exist();
                     expect(result1.id).to.equal(1);
 
                     server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result2) => {
 
+                        expect(err).to.not.exist();
                         expect(result1.id).to.equal(1);
                         done();
                     });
@@ -332,10 +346,12 @@ describe('action()', () => {
 
                 server.methods.generate({ name: 'steve', pre: 'mr' }, (err, result1) => {
 
+                    expect(err).to.not.exist();
                     expect(result1.id).to.equal(1);
 
                     server.methods.generate('name:steve,pre:mr', (err, result2) => {
 
+                        expect(err).to.not.exist();
                         expect(result1.id).to.equal(1);
                         done();
                     });
@@ -364,6 +380,7 @@ describe('action()', () => {
 
                 server.methods.generate({ price: { a: 'b' } }, (err, result) => {
 
+                    expect(err).to.exist();
                     expect(result).to.not.exist();
                     done();
                 });
