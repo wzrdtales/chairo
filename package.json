@@ -19,18 +19,18 @@
     "items": "1.x.x",
     "joi": "6.x.x",
     "jsonic": "0.2.x",
-    "seneca": "0.x.x",
+    "seneca": "1.x.x",
     "vision": "3.x.x"
   },
   "peerDependencies": {
-    "hapi": "11.x.x"
+    "hapi": ">=11.x.x"
   },
   "devDependencies": {
     "code": "2.x.x",
     "coveralls": "^2.11.4",
     "handlebars": "4.x.x",
-    "hapi": "11.x.x",
-    "lab": "7.x.x"
+    "hapi": "12.x.x",
+    "lab": "8.x.x"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L",

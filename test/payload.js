@@ -78,59 +78,41 @@ describe('Handlers', () => {
 
     it('load custom web plugin if provided in options', (done) => {
 
-        const server = new Hapi.Server();
-        server.connection();
-        server.register([{ register: Chairo, options: {
-            someOption: 'someValue',
-            webPlugin: function () {
+        const web = function () {
 
-                return {
-                    name: 'web',
-                    export: function () {},
-                    exportmap: {
-                        hapi: function (srv, options, next) {
+            return {
+                name: 'web',
+                export: function () {},
+                exportmap: {
+                    hapi: function (server, options, next) {
 
-                            expect(srv);
-                            expect(options);
-                            expect(options.someOption).to.equal('someValue');
-                            server.seneca.close();
-                            done();
-                        }
+                        expect(server).to.exist();
+                        expect(options).to.exist();
+                        expect(options.someOption).to.equal('someValue');
+                        server.seneca.close();
+                        done();
                     }
-                };
-            }
-        } }, Vision], (err) => {
+                }
+            };
+        };
 
-            expect(err).to.not.exist();
+        const setupServer = function () {
 
-        });
-    });
-
-    it('if options default_plugin.web set to false then do not execute export hapi', (done) => {
-
-        const server = new Hapi.Server();
-        server.connection();
-        server.register([{ register: Chairo, options: {
-            'default_plugins': {
-                'web' : false
-            },
-            webPlugin: function () {
-                return {
-                    name: 'web',
-                    export: function () {},
-                    exportmap: {
-                        hapi: function () {
-
-                            throw new Error('This should not happen...')
-                        }
+            const server = new Hapi.Server();
+            server.connection();
+            server.register([
+                {
+                    register: Chairo,
+                    options: {
+                        someOption: 'someValue',
+                        web: web
                     }
-                };
-            }
-        } }, Vision], (err) => {
+                }, Vision], (err) => {
 
-            expect(err).to.not.exist();
-            server.seneca.close();
-            done();
-        });
+                expect(err).to.not.exist();
+            });
+        };
+
+        setupServer();
     });
 });
