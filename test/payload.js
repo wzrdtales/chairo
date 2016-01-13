@@ -105,7 +105,10 @@ describe('Handlers', () => {
                     register: Chairo,
                     options: {
                         someOption: 'someValue',
-                        web: web
+                        web: web,
+                        default_plugins: {
+                            web: false
+                        }
                     }
                 }, Vision], (err) => {
 
