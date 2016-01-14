@@ -23,7 +23,9 @@ using the provided plugin options. Default plugin options:
 
 You can add a custom `seneca` web plugin by passing in a function on the `web`
 property.  If `web` is passed in, then the default web plugin for seneca is
-disabled.
+disabled.  `web` must be a function to add custom web functionality.  To disable
+the all web plugins set `web` to `false`.
+
 
 ```js
 var Chairo = require('chairo');
