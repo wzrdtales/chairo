@@ -28,10 +28,10 @@ the all web plugins set `web` to `false`.
 
 
 ```js
-var Chairo = require('chairo');
-var Hapi = require('hapi');
+const Chairo = require('chairo');
+const Hapi = require('hapi');
 
-var server = new Hapi.Server();
+const server = new Hapi.Server();
 server.connection();
 
 // Register plugin
@@ -40,7 +40,7 @@ server.register({ register: Chairo }, function (err) {
 
 	// Add a Seneca action
 
-    var id = 0;
+    let id = 0;
     server.seneca.add({ generate: 'id' }, function (message, next) {
 
         return next(null, { id: ++id });
@@ -90,10 +90,10 @@ Maps a **Seneca** action pattern to a **hapi**
     - `generateKey` - method generating custom cache key (same as the name used in `server.method()`).
 
 ```js
-var Chairo = require('chairo');
-var Hapi = require('hapi');
+const Chairo = require('chairo');
+const Hapi = require('hapi');
 
-var server = new Hapi.Server();
+const server = new Hapi.Server();
 server.connection();
 server.register(Chairo, function (err) {
 
@@ -154,10 +154,10 @@ Sends back a handler response using the result of a **Seneca** action where:
 - `pattern` - the **Seneca** action called to generate the response.
 
 ```js
-var Chairo = require('chairo');
-var Hapi = require('hapi');
+const Chairo = require('chairo');
+const Hapi = require('hapi');
 
-var server = new Hapi.Server();
+const server = new Hapi.Server();
 server.connection();
 server.register(Chairo, function (err) {
 
@@ -199,18 +199,20 @@ server.route({
 Renders a template view using the provided template and context where:
 - `template` - the view engine template (same as the name used in
   [`reply.view()`](https://github.com/hapijs/hapi/blob/master/API.md#replyviewtemplate-context-options)).
-- `context` - the context object used to render the template where each top level key with a `$`
-  suffix is assigned the corresponding **Seneca** action matching the key's value pattern.
+- `context` - the context object used to render the template. `Chairo` provides a special key `$resolve` where you can map context variables to **Seneca** actions matching they key's value pattern. Each of the service mapped to keys is resolved and resultant key value maps are copied at context root before redering the template.
 - `options` - optionals settings passed to `reply.view()`.
 
-```js
-var Chairo = require('chairo');
-var Handlebars = require('handlebars');
-var Hapi = require('hapi');
+It requires `vision` plugin to be registered with Hapi.
 
-var server = new Hapi.Server();
+```js
+const Chairo = require('chairo');
+const Handlebars = require('handlebars');
+const Vision = require('vision');
+const Hapi = require('hapi');
+
+const server = new Hapi.Server();
 server.connection();
-server.register(Chairo, function (err) {
+server.register([{ register: Chairo }, Vision], function (err) {
 
 	// set up a few Seneca actions
 
@@ -241,8 +243,10 @@ server.register(Chairo, function (err) {
 			// Setup context with both Seneca actions and simple keys
 
             var context = {
-                today$: 'lookup:date',							// Using string pattern
-                user$: { load: 'user', name: 'john' },			// Using object pattern
+                $resolve: {
+                    today: 'lookup:date',							// Using string pattern
+                    user: { load: 'user', name: 'john' }			// Using object pattern
+                },
                 general: {
                     message: 'hello!'
                 }
@@ -260,8 +264,8 @@ Using the template `./templates/example.html`:
 
 ```html
 <div>
-    <h1>{{today$.date}}</h1>
-    <h2>{{user$.name}}</h2>
+    <h1>{{today.date}}</h1>
+    <h2>{{user.name}}</h2>
     <h3>{{general.message}}</h3>
 </div>
 ```
@@ -276,8 +280,10 @@ server.route({
         compose: {
             template: 'example',
             context: {
-                today$: 'lookup:date',
-                user$: { load: 'user', name: 'john' },
+                $resolve: {
+                    today: 'lookup:date',
+                    user: { load: 'user', name: 'john' }
+                },
                 general: {
                     message: 'hello!'
                 }
