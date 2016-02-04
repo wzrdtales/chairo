@@ -188,6 +188,31 @@ describe('action()', () => {
         });
     });
 
+    it('throws an exception for invalid cache options', (done) => {
+
+        const server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo }, (err) => {
+
+            expect(err).to.not.exist();
+
+            let id = 0;
+            server.seneca.add({ generate: 'id' }, (message, next) => {
+
+                return next(null, { id: ++id });
+            });
+
+            const incorrect = function () {
+
+                server.action('generate', 'generate:id', []);
+            };
+
+            expect(incorrect).to.throw(Error);
+
+            done();
+        });
+    });
+
     it('maps an action to a server method (cached with custom generateKey)', (done) => {
 
         const server = new Hapi.Server();
@@ -533,6 +558,59 @@ describe('Replies', () => {
 
     describe('compose()', () => {
 
+        it('renders view from a template', (done) => {
+
+            const server = new Hapi.Server();
+            server.connection();
+            server.register([{ register: Chairo }, Vision], (err) => {
+
+                expect(err).to.not.exist();
+
+                server.seneca.add({ generate: 'id' }, (message, next) => {
+
+                    return next(null, { id: 1 });
+                });
+
+                server.seneca.add({ record: 'user' }, (message, next) => {
+
+                    return next(null, { name: message.name });
+                });
+
+                server.views({
+                    engines: { html: require('handlebars') },
+                    path: __dirname + '/templates'
+                });
+
+                server.route({
+                    method: 'GET',
+                    path: '/',
+                    handler: (request, reply) => {
+
+                        const context = {
+                            user: {
+                                id: {
+                                    id: 1
+                                },
+                                name: {
+                                    name: 'john'
+                                }
+                            },
+                            general: {
+                                message: 'hello!'
+                            }
+                        };
+
+                        return reply.compose('test', context);
+                    }
+                });
+                server.inject('/', (res) => {
+
+                    expect(res.result).to.equal('<div>\n    <h1>1</h1>\n    <h2>john</h2>\n    <h3>hello!</h3>\n</div>\n');
+                    done();
+                });
+            });
+        });
+
         it('renders view using multiple actions', (done) => {
 
             const server = new Hapi.Server();
@@ -562,8 +640,10 @@ describe('Replies', () => {
                     handler: (request, reply) => {
 
                         const context = {
-                            id$: 'generate:id',
-                            user$: { record: 'user', name: 'john' },
+                            $resolve: {
+                                'user.id': 'generate:id',
+                                'user.name': { record: 'user', name: 'john' }
+                            },
                             general: {
                                 message: 'hello!'
                             }
@@ -605,8 +685,10 @@ describe('Replies', () => {
                     handler: (request, reply) => {
 
                         const context = {
-                            id$: 'generate:id',
-                            user$: { record: 'user', name: 'john' },
+                            $resolve: {
+                                'user.id': 'generate:id',
+                                'user.name': { record: 'user', name: 'john' }
+                            },
                             general: {
                                 message: 'hello!'
                             }
@@ -711,8 +793,10 @@ describe('Handlers', () => {
                         compose: {
                             template: 'test',
                             context: {
-                                id$: 'generate:id',
-                                user$: { record: 'user', name: 'john' },
+                                $resolve: {
+                                    'user.id': 'generate:id',
+                                    'user.name': { record: 'user', name: 'john' }
+                                },
                                 general: {
                                     message: 'hello!'
                                 }
