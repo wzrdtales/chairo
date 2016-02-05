@@ -212,7 +212,7 @@ const Hapi = require('hapi');
 
 const server = new Hapi.Server();
 server.connection();
-server.register([{ register: Chairo }, Vision], function (err) {
+server.register([Chairo, Vision], function (err) {
 
 	// set up a few Seneca actions
 
