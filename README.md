@@ -24,7 +24,7 @@ using the provided plugin options. Default plugin options:
 You can add a custom `seneca` web plugin by passing in a function on the `web`
 property.  If `web` is passed in, then the default web plugin for seneca is
 disabled.  `web` must be a function to add custom web functionality.  To disable
-the all web plugins set `web` to `false`.
+the seneca-web plugin set `web` to `false`.
 
 
 ```js
@@ -199,10 +199,10 @@ server.route({
 Renders a template view using the provided template and context where:
 - `template` - the view engine template (same as the name used in
   [`reply.view()`](https://github.com/hapijs/hapi/blob/master/API.md#replyviewtemplate-context-options)).
-- `context` - the context object used to render the template. `Chairo` provides a special key `$resolve` where you can map context variables to **Seneca** actions matching they key's value pattern. Each of the service mapped to keys is resolved and resultant key value maps are copied at context root before redering the template.
-- `options` - optionals settings passed to `reply.view()`.
+- `context` - the context object used to render the template. `Chairo` provides a special key `$resolve` where you can map context variables to **Seneca** actions matching they key's value pattern. Each of the services mapped to keys is resolved and the resultant key value maps are copied to the context root before redering the template.
+- `options` - optional settings passed to `reply.view()`.
 
-It requires `vision` plugin to be registered with Hapi.
+_It requires the `vision` plugin to be registered with Hapi._
 
 ```js
 const Chairo = require('chairo');
@@ -244,7 +244,7 @@ server.register([{ register: Chairo }, Vision], function (err) {
 
             var context = {
                 $resolve: {
-                    today: 'lookup:date',							// Using string pattern
+                    today: 'lookup:date',					// Using string pattern
                     user: { load: 'user', name: 'john' }			// Using object pattern
                 },
                 general: {
