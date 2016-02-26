@@ -19,8 +19,7 @@
     "items": "2.0.x",
     "joi": "7.2.x",
     "jsonic": "0.2.x",
-    "seneca": "1.1.x",
-    "vision": "4.0.x"
+    "seneca": "1.1.x"
   },
   "peerDependencies": {
     "hapi": ">=11.x.x"
@@ -30,7 +29,8 @@
     "coveralls": "2.11.x",
     "handlebars": "4.0.x",
     "hapi": "13.0.x",
-    "lab": "8.2.x"
+    "lab": "8.2.x",
+    "vision": "4.0.x"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
