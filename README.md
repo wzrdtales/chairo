@@ -17,6 +17,7 @@ Lead Maintainer - [Wyatt Preul](https://github.com/geek)
 registered it decorates the `server` object with a reference to the `seneca` object initialized
 using the provided plugin options. Default plugin options:
 
+ * `seneca`: `false`
  * `log`: `silent`
  * `actcache`:
      * `active`: `false`
@@ -25,6 +26,11 @@ You can add a custom `seneca` web plugin by passing in a function on the `web`
 property.  If `web` is passed in, then the default web plugin for seneca is
 disabled.  `web` must be a function to add custom web functionality.  To disable
 the seneca-web plugin set `web` to `false`.
+
+You can use an existing instance to `seneca` and let `chairo` do the decorations
+for your server.  When setting the `seneca` option on the configuration, please
+note that the other settings won't be used, including the custom registration
+of a web plugin.
 
 
 ```js

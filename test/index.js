@@ -5,6 +5,7 @@
 const Code = require('code');
 const Hapi = require('hapi');
 const Lab = require('lab');
+const Seneca = require('seneca');
 const Vision = require('vision');
 const Chairo = require('../');
 
@@ -117,6 +118,19 @@ describe('register()', () => {
                 expect(err).to.not.exist();
                 done();
             });
+        });
+    });
+
+    it('uses passed in seneca instance if provided', (done) => {
+
+        const seneca = new Seneca({ log: 'silent' });
+        const server = new Hapi.Server();
+        server.connection();
+        server.register({ register: Chairo, options: { seneca: seneca } }, (err) => {
+
+            expect(err).to.not.exist();
+            expect(server.seneca.id).to.equal(seneca.id);
+            done();
         });
     });
 });
