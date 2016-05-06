@@ -865,7 +865,7 @@ describe('Handlers', () => {
 
             server.seneca.add({ verify: 'request' }, (message, next) => {
 
-                expect(message.req$.query).to.deep.equal({ some: 'action' });
+                expect(message.req$.query.some).to.equal('action');
                 return next(null, { id: 1 });
             });
 
