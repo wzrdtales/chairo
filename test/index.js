@@ -44,7 +44,7 @@ describe('register()', () => {
             server.seneca.act({ generate: 'id' }, (err, result) => {
 
                 expect(err).to.not.exist();
-                expect(result).to.deep.equal({ id: 1 });
+                expect(result).to.equal({ id: 1 });
                 done();
             });
         });
@@ -156,12 +156,12 @@ describe('action()', () => {
             server.methods.generate((err, result) => {
 
                 expect(err).to.not.exist();
-                expect(result).to.deep.equal({ id: 1 });
+                expect(result).to.equal({ id: 1 });
 
                 server.methods.generate((err, result2) => {
 
                     expect(err).to.not.exist();
-                    expect(result2).to.deep.equal({ id: 2 });
+                    expect(result2).to.equal({ id: 2 });
                     done();
                 });
             });
@@ -189,12 +189,12 @@ describe('action()', () => {
                 server.methods.generate((err, result1) => {
 
                     expect(err).to.not.exist();
-                    expect(result1).to.deep.equal({ id: 1 });
+                    expect(result1).to.equal({ id: 1 });
 
                     server.methods.generate((err, result2) => {
 
                         expect(err).to.not.exist();
-                        expect(result2).to.deep.equal({ id: 1 });
+                        expect(result2).to.equal({ id: 1 });
                         done();
                     });
                 });
@@ -250,12 +250,12 @@ describe('action()', () => {
                 server.methods.generate({ samples: { readings: { values: [2, 3] } } }, (err, result1) => {
 
                     expect(err).to.not.exist();
-                    expect(result1).to.deep.equal({ result: 6 });
+                    expect(result1).to.equal({ result: 6 });
 
                     server.methods.generate({ samples: { readings: { values: [2, 3] } } }, (err2, result2) => {
 
                         expect(err2).to.not.exist();
-                        expect(result2).to.deep.equal({ result: 6 });
+                        expect(result2).to.equal({ result: 6 });
                         done();
                     });
                 });
@@ -281,7 +281,7 @@ describe('action()', () => {
             server.methods.generate((err, result) => {
 
                 expect(err).to.not.exist();
-                expect(result).to.deep.equal({ id: 1 });
+                expect(result).to.equal({ id: 1 });
                 done();
             });
         });
@@ -305,7 +305,7 @@ describe('action()', () => {
             server.methods.generate('name:steve', (err, result) => {
 
                 expect(err).to.not.exist();
-                expect(result).to.deep.equal({ id: 1, name: 'steve' });
+                expect(result).to.equal({ id: 1, name: 'steve' });
                 done();
             });
         });
@@ -329,7 +329,7 @@ describe('action()', () => {
             server.methods.generate({ name: 'steve' }, (err, result) => {
 
                 expect(err).to.not.exist();
-                expect(result).to.deep.equal({ id: 1, name: 'steve' });
+                expect(result).to.equal({ id: 1, name: 'steve' });
                 done();
             });
         });
@@ -558,7 +558,7 @@ describe('Replies', () => {
                 server.inject('/', (res) => {
 
                     expect(res.statusCode).to.equal(200);
-                    expect(res.result).to.deep.equal({ id: 1 });
+                    expect(res.result).to.equal({ id: 1 });
 
                     server.inject('/', (res2) => {
 
@@ -744,7 +744,7 @@ describe('Handlers', () => {
                 server.inject('/', (res) => {
 
                     expect(res.statusCode).to.equal(200);
-                    expect(res.result).to.deep.equal({ id: 1 });
+                    expect(res.result).to.equal({ id: 1 });
                     done();
                 });
             });
@@ -768,7 +768,7 @@ describe('Handlers', () => {
                 server.inject('/id', (res) => {
 
                     expect(res.statusCode).to.equal(200);
-                    expect(res.result).to.deep.equal({ id: 1 });
+                    expect(res.result).to.equal({ id: 1 });
                     done();
                 });
             });
@@ -838,7 +838,7 @@ describe('Handlers', () => {
 
             server.seneca.add({ get: 'request' }, (message, next) => {
 
-                expect(message.req$.payload).to.deep.equal({ some: 'data', another: 'data' });
+                expect(message.req$.payload).to.equal({ some: 'data', another: 'data' });
                 return next(null, { id: 1 });
             });
 
@@ -847,7 +847,7 @@ describe('Handlers', () => {
             server.inject({ method: 'POST', url: '/', payload: { some: 'data', another: 'data' } }, (res) => {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ id: 1 });
+                expect(res.result).to.equal({ id: 1 });
                 server.seneca.close();
                 done();
             });
@@ -874,7 +874,7 @@ describe('Handlers', () => {
             server.inject({ method: 'GET', url: '/route?some=action' }, (res) => {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ id: 1 });
+                expect(res.result).to.equal({ id: 1 });
                 server.seneca.close();
                 done();
             });
