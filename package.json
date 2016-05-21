@@ -25,7 +25,7 @@
     "hapi": ">=11.x.x"
   },
   "devDependencies": {
-    "code": "2.x.x",
+    "code": "3.x.x",
     "coveralls": "2.x.x",
     "handlebars": "4.x.x",
     "hapi": "13.x.x",
