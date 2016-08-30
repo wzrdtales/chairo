@@ -78,7 +78,7 @@ describe('register()', () => {
                     register: Chairo,
                     options: {
                         someOption: 'someValue',
-                        web: web
+                        web
                     }
                 }], (err) => {
 
@@ -126,7 +126,7 @@ describe('register()', () => {
         const seneca = new Seneca({ log: 'silent' });
         const server = new Hapi.Server();
         server.connection();
-        server.register({ register: Chairo, options: { seneca: seneca } }, (err) => {
+        server.register({ register: Chairo, options: { seneca } }, (err) => {
 
             expect(err).to.not.exist();
             expect(server.seneca.id).to.equal(seneca.id);
@@ -515,7 +515,7 @@ describe('Request', () => {
                 return reply(request.seneca.fixedargs.req$.url.path);
             };
 
-            server.route({ method: 'GET', path: '/', handler: handler });
+            server.route({ method: 'GET', path: '/', handler });
 
             server.inject('/', (res) => {
 
@@ -553,7 +553,7 @@ describe('Replies', () => {
                     return reply.act({ generate: 'id' });
                 };
 
-                server.route({ method: 'GET', path: '/', handler: handler });
+                server.route({ method: 'GET', path: '/', handler });
 
                 server.inject('/', (res) => {
 
