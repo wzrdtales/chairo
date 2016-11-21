@@ -1,7 +1,7 @@
 {
   "name": "chairo",
   "description": "Seneca micro-services plugin for hapi",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "repository": "git://github.com/hapijs/chairo",
   "main": "lib/index.js",
   "keywords": [
@@ -19,7 +19,7 @@
     "items": "2.x.x",
     "joi": "9.x.x",
     "jsonic": "0.2.x",
-    "seneca": "2.x.x"
+    "seneca": "3.x.x"
   },
   "peerDependencies": {
     "hapi": ">=11.x.x"
