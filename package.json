@@ -17,7 +17,7 @@
     "boom": "4.x.x",
     "hoek": "4.x.x",
     "items": "2.x.x",
-    "joi": "9.x.x",
+    "joi": "10.x.x",
     "jsonic": "0.2.x",
     "seneca": "3.x.x"
   },
@@ -25,7 +25,7 @@
     "hapi": ">=11.x.x"
   },
   "devDependencies": {
-    "code": "3.x.x",
+    "code": "4.x.x",
     "coveralls": "2.x.x",
     "handlebars": "4.x.x",
     "hapi": "15.x.x",
