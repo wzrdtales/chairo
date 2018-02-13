@@ -1,10 +1,15 @@
 {
   "name": "@wzrdtales/chairo",
   "description": "Seneca micro-services plugin for hapi",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "repository": "git://github.com/hapijs/chairo",
   "main": "lib/index.js",
-  "keywords": ["hapi", "plugin", "microservices", "seneca"],
+  "keywords": [
+    "hapi",
+    "plugin",
+    "microservices",
+    "seneca"
+  ],
   "engines": {
     "node": ">=4.0.0"
   },
@@ -32,8 +37,7 @@
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
-    "test-cov-html":
-      "node node_modules/lab/bin/lab -a code -r html -o coverage.html",
+    "test-cov-html": "node node_modules/lab/bin/lab -a code -r html -o coverage.html",
     "cover": "lab -s -r lcov | coveralls"
   },
   "license": "BSD-3-Clause"
