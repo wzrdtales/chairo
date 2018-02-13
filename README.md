@@ -85,7 +85,7 @@ where:
   * `cache` - method caching options (same as the name used in `server.method()`).
   * `generateKey` - method generating custom cache key (same as the name used in `server.method()`).
 
-````js
+```js
 'use strict';
 
 const Chairo = require('chairo');
@@ -93,75 +93,70 @@ const Hapi = require('hapi');
 
 const server = new Hapi.Server();
 (async () => {
+  try {
+    await server.register(Chairo);
 
-    try {
-        await server.register(Chairo);
+    // Set up a Seneca action
 
-        // Set up a Seneca action
+    let id = 0;
+    server.seneca.addAsync({ generate: 'id' }, async message => {
+      return { id: ++id };
+    });
 
-        let id = 0;
-        server.seneca.addAsync({ generate: 'id' }, async (message) => {
+    server.seneca.addAsync({ calc: 'average' }, async message => {
+      return {
+        average:
+          (message.samples.dataset.values[0] +
+            message.samples.dataset.values[0]) /
+          2
+      };
+    });
 
-            return { id: ++id };
-        });
+    // Map action to a hapi server method
 
-        server.seneca.addAsync({ calc: 'average' }, async (message) => {
+    server.action('generate', 'generate:id', {
+      cache: { expiresIn: 1000, generateTimeout: 3000 }
+    });
 
-            return {
-                average:
-                    (message.samples.dataset.values[0] +
-                        message.samples.dataset.values[0]) /
-                    2
-            };
-        });
+    // Map action to a hapi server method with custom generateKey method
 
-        // Map action to a hapi server method
+    server.action('average', 'calc:average', {
+      cache: { expiresIn: 1000, generateTimeout: 3000 },
+      generateKey: function(message) {
+        return (
+          'average-' +
+          message.samples.dataset.values[0] +
+          ':' +
+          message.samples.dataset.values[1]
+        );
+      }
+    });
 
-        server.action('generate', 'generate:id', {
-            cache: { expiresIn: 1000, generateTimeout: 3000 }
-        });
+    // Start hapi server (starts cache)
 
-        // Map action to a hapi server method with custom generateKey method
+    await server.start();
 
-        server.action('average', 'calc:average', {
-            cache: { expiresIn: 1000, generateTimeout: 3000 },
-            generateKey: function (message) {
+    // Invoke server method
 
-                return (
-                    'average-' +
-                    message.samples.dataset.values[0] +
-                    ':' +
-                    message.samples.dataset.values[1]
-                );
-            }
-        });
+    const result1 = await server.methods.generate();
+    // Invoke the same server method
 
-        // Start hapi server (starts cache)
+    const result2 = await server.methods.generate();
+    // result1 === result2 (cached)
 
-        await server.start();
+    const avg1 = await server.methods.average({
+      samples: { dataset: { values: [2, 3] } }
+    });
 
-        // Invoke server method
-
-        const result1 = await server.methods.generate();
-        // Invoke the same server method
-
-        const result2 = await server.methods.generate();
-        // result1 === result2 (cached)
-
-        const avg1 = await server.methods.average({
-            samples: { dataset: { values: [2, 3] } }
-        });
-
-        const avg2 = await server.methods.average({
-            samples: { dataset: { values: [2, 3] } }
-        });
-        // avg1 == avg2 (cached)
-    }
-    catch (err) {}
+    const avg2 = await server.methods.average({
+      samples: { dataset: { values: [2, 3] } }
+    });
+    // avg1 == avg2 (cached)
+  } catch (err) {}
 })();
 ```
 
-#### `reply.act(pattern)`
+#### `h.act(pattern)`
 
 Sends back a handler response using the result of a **Seneca** action where:
 
@@ -174,30 +169,27 @@ const Hapi = require('hapi');
 const server = new Hapi.Server();
 
 (async () => {
+  try {
+    await server.register(Chairo);
+    // Set up a Seneca action
 
-    try {
-        await server.register(Chairo);
-        // Set up a Seneca action
+    let id = 0;
+    server.seneca.addAsync({ generate: 'id' }, async message => {
+      return { id: ++id };
+    });
 
-        let id = 0;
-        server.seneca.addAsync({ generate: 'id' }, async (message) => {
+    // Add route
 
-            return { id: ++id };
-        });
+    server.route({
+      method: 'POST',
+      path: '/id',
+      handler: function(request, h) {
+        // Reply using a Seneca action
 
-        // Add route
-
-        server.route({
-            method: 'POST',
-            path: '/id',
-            handler: function (request, h) {
-                // Reply using a Seneca action
-
-                return h.act({ generate: 'id' });
-            }
-        });
-    }
-    catch (err) {}
+        return h.act({ generate: 'id' });
+      }
+    });
+  } catch (err) {}
 })();
 ```
 
@@ -229,49 +221,52 @@ const Vision = require('vision');
 const Hapi = require('hapi');
 
 const server = new Hapi.Server();
-server.connection();
-server.register([Chairo, Vision], function(err) {
-  // set up a few Seneca actions
 
-  server.seneca.add({ lookup: 'date' }, function(message, next) {
-    return next(null, { date: new Date().toString() });
-  });
+(async () => {
+  try {
+    await server.register([Chairo, Vision]);
+    // set up a few Seneca actions
 
-  server.seneca.add({ load: 'user' }, function(message, next) {
-    return next(null, { name: message.name });
-  });
+    server.seneca.addAsync({ lookup: 'date' }, async message => {
+      return { date: new Date().toString() };
+    });
 
-  // Set up a hapi view engine
+    server.seneca.addAsync({ load: 'user' }, async message => {
+      return { name: message.name };
+    });
 
-  server.views({
-    engines: { html: Handlebars },
-    path: __dirname + '/templates'
-  });
+    // Set up a hapi view engine
 
-  // Add route
+    server.views({
+      engines: { html: Handlebars },
+      path: __dirname + '/templates'
+    });
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: function(request, reply) {
-      // Setup context with both Seneca actions and simple keys
+    // Add route
 
-      var context = {
-        $resolve: {
-          today: 'lookup:date', // Using string pattern
-          user: { load: 'user', name: 'john' } // Using object pattern
-        },
-        general: {
-          message: 'hello!'
-        }
-      };
+    server.route({
+      method: 'GET',
+      path: '/',
+      handler: function(request, h) {
+        // Setup context with both Seneca actions and simple keys
 
-      // Reply with rendered view
+        const context = {
+          $resolve: {
+            today: 'lookup:date', // Using string pattern
+            user: { load: 'user', name: 'john' } // Using object pattern
+          },
+          general: {
+            message: 'hello!'
+          }
+        };
 
-      return reply.compose('example', context);
-    }
-  });
-});
+        // Reply with rendered view
+
+        return h.compose('example', context);
+      }
+    });
+  } catch (err) {}
+})();
 ```
 
 Using the template `./templates/example.html`:
@@ -311,4 +306,3 @@ server.route({
 [npm-url]: https://badge.fury.io/js/chairo
 [travis-badge]: https://api.travis-ci.org/hapijs/chairo.svg
 [travis-url]: https://travis-ci.org/hapijs/chairo
-````
