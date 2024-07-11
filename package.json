@@ -14,14 +14,12 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "boom": "^7.1.1",
+    "@hapi/boom": "^10.0.1",
+    "@hapi/hoek": "^11.0.4",
     "bounce": "^1.2.0",
-    "hoek": "^5.0.3",
     "items": "^2.1.1",
     "joi": "^13.1.2",
-    "jsonic": "0.2.x",
-    "seneca": "3.x.x",
-    "seneca-as-promised": "^2.0.0"
+    "microwizard": "^1.1.1"
   },
   "peerDependencies": {
     "hapi": ">=11.x.x"
@@ -40,5 +38,10 @@
     "test-cov-html": "node node_modules/lab/bin/lab -a code -r html -o coverage.html",
     "cover": "lab -s -r lcov | coveralls"
   },
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "pnpm": {
+    "overrides": {
+      "ip@<1.1.9": ">=1.1.9"
+    }
+  }
 }
