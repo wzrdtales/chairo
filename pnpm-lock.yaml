@@ -17,6 +17,9 @@ importers:
       '@hapi/hoek':
         specifier: ^11.0.4
         version: 11.0.4
+      '@wzrdtales/visigoth':
+        specifier: ^2.0.4
+        version: 2.0.4
       bounce:
         specifier: ^1.2.0
         version: 1.2.3
@@ -133,8 +136,8 @@ packages:
   '@wzrdtales/swim-ng@0.6.2':
     resolution: {integrity: sha512-rfHo0Z9a4X7xh/w3NzM5HUW6BIHZy4gwV2OTBhpHAYTEbKXRT2l/gj6nwDA/6UPVsvWl6pqvT5ZW2dMUt5MWJg==}
 
-  '@wzrdtales/visigoth@2.0.3':
-    resolution: {integrity: sha512-nWznSbGhbn+T1AmDxRIMwxmOFbCRfIPvjqsgd1mCyH7PQtciCY6Z5Q32oL2HHsft/Ah/9latpKZluHfmqDyIOg==}
+  '@wzrdtales/visigoth@2.0.4':
+    resolution: {integrity: sha512-HC8K8It0hoiO9OmntUSYX2tIgykd4yDK5M4ENUMlC6+fjjsPIJRgmj9gkoEqQQ4bi6C1GVtsIO7xoE0fXLIOzg==}
 
   accept@3.1.3:
     resolution: {integrity: sha512-OgOEAidVEOKPup+Gv2+2wdH2AgVKI9LxsJ4hicdJ6cY0faUuZdZoi56kkXWlHp9qicN1nWQLmW5ZRGk+SBS5xg==}
@@ -1523,7 +1526,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wzrdtales/visigoth@2.0.3':
+  '@wzrdtales/visigoth@2.0.4':
     dependencies:
       lodash: 4.17.21
 
@@ -2334,7 +2337,7 @@ snapshots:
 
   microwizard@1.3.4:
     dependencies:
-      '@wzrdtales/visigoth': 2.0.3
+      '@wzrdtales/visigoth': 2.0.4
       bluebird: 3.7.2
       ip: 2.0.1
       lodash: 4.17.21
