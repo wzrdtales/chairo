@@ -27,8 +27,8 @@ importers:
         specifier: ^13.1.2
         version: 13.7.0
       microwizard:
-        specifier: ^1.3.5
-        version: 1.3.5
+        specifier: ^1.3.6
+        version: 1.3.6
     devDependencies:
       code:
         specifier: 4.x.x
@@ -910,8 +910,8 @@ packages:
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
 
-  microwizard@1.3.5:
-    resolution: {integrity: sha512-6gt3gKYyj93uysP9XKiZNhejGRuZTP/cql1B4y+Ckr9qCLNAJDBZCz7S7st0ZP4khI7530/8xQTv1h2RG5hy3g==}
+  microwizard@1.3.6:
+    resolution: {integrity: sha512-w5zDNBHZ0YisBbtH+R8iXkwa0KxQKKg49JvMeyI6SgB5dIZ/AV1TqMhm6Kwh2tBEKBFn6MhTRahBMAYEksjiFw==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -2332,7 +2332,7 @@ snapshots:
       pseudomap: 1.0.2
       yallist: 2.1.2
 
-  microwizard@1.3.5:
+  microwizard@1.3.6:
     dependencies:
       '@wzrdtales/visigoth': 2.0.4
       bluebird: 3.7.2
