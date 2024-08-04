@@ -27,8 +27,8 @@ importers:
         specifier: ^13.1.2
         version: 13.7.0
       microwizard:
-        specifier: ^1.1.5
-        version: 1.1.5
+        specifier: ^1.3.4
+        version: 1.3.4
     devDependencies:
       code:
         specifier: 4.x.x
@@ -80,10 +80,6 @@ packages:
 
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
-
-  '@jsonic/jsonic-next@2.12.1':
-    resolution: {integrity: sha512-5s9YUgiYLyKgwBbawEvtMGzuwWHqZobJ7eDH06KihV9INst/S9PxRxA7/OYrMX6TD7Cs5rKPH5uM1qBCH5JVKQ==}
-    hasBin: true
 
   '@lukeed/csprng@1.1.0':
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
@@ -137,8 +133,8 @@ packages:
   '@wzrdtales/swim-ng@0.6.2':
     resolution: {integrity: sha512-rfHo0Z9a4X7xh/w3NzM5HUW6BIHZy4gwV2OTBhpHAYTEbKXRT2l/gj6nwDA/6UPVsvWl6pqvT5ZW2dMUt5MWJg==}
 
-  '@wzrdtales/visigoth@2.0.0':
-    resolution: {integrity: sha512-6Db9zVR64AQpe0Q43ddFTu7JzKCn9ZmScR9p0Y6PCuj2RRrAYDuQOjjpsKRYOD2aE7+i7h9bZD1e+0J8fBlwXQ==}
+  '@wzrdtales/visigoth@2.0.3':
+    resolution: {integrity: sha512-nWznSbGhbn+T1AmDxRIMwxmOFbCRfIPvjqsgd1mCyH7PQtciCY6Z5Q32oL2HHsft/Ah/9latpKZluHfmqDyIOg==}
 
   accept@3.1.3:
     resolution: {integrity: sha512-OgOEAidVEOKPup+Gv2+2wdH2AgVKI9LxsJ4hicdJ6cY0faUuZdZoi56kkXWlHp9qicN1nWQLmW5ZRGk+SBS5xg==}
@@ -724,11 +720,6 @@ packages:
     engines: {node: '>=0.10.40'}
     deprecated: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
 
-  hoek@4.2.1:
-    resolution: {integrity: sha512-QLg82fGkfnJ/4iy1xZ81/9SIJiq1NGFUMGs6ParyjBZr6jW2Ufj/snDqTHixNlHdPNwN2RLVD0Pi3igeK9+JfA==}
-    engines: {node: '>=4.0.0'}
-    deprecated: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
-
   hoek@4.3.1:
     resolution: {integrity: sha512-v7E+yIjcHECn973i0xHm4kJkEpv3C8sbYS4344WXbzYqRyiDD7rjnnKo4hsJkejQBAFdRMUGNHySeSPKSH9Rqw==}
     engines: {node: '>=6.0.0'}
@@ -825,11 +816,6 @@ packages:
     engines: {node: '>=6.0.0'}
     deprecated: This module has been deprecated. It's not used by modern hapi versions anymore. Please refer to https://hapi.dev for migration to latest versions.
 
-  joi@12.0.0:
-    resolution: {integrity: sha512-z0FNlV4NGgjQN1fdtHYXf5kmgludM65fG/JlXzU6+rwkt9U5UWuXVYnXa2FpK0u6+qBuCmrm5byPNuiiddAHvQ==}
-    engines: {node: '>=4.0.0'}
-    deprecated: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
-
   joi@13.7.0:
     resolution: {integrity: sha512-xuY5VkHfeOYK3Hdi91ulocfuFopwgbSORmIwzcwHKESQhC7w1kD5jaVSPnqDxS2I8t3RZ9omCKAxNwXN5zG1/Q==}
     engines: {node: '>=8.9.0'}
@@ -924,8 +910,8 @@ packages:
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
 
-  microwizard@1.1.5:
-    resolution: {integrity: sha512-SRgeHG4hoc4fxhjc9ziYyczKOkvDXDbd5GgJZBvi+LKI+4A0BuGGkrunJy2RdVPg1SX/KlAs/8t4XKr8KjrsMw==}
+  microwizard@1.3.4:
+    resolution: {integrity: sha512-I8cEhAij8XTScMCmpBum4HjWMPHJ+zJXp4RuJQLJNCogxzd3QUJx6dVyw6n7+2oo8lRRh49IpdYXLj8E1dIfow==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -1047,9 +1033,6 @@ packages:
   optionator@0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
-
-  optioner@1.1.0:
-    resolution: {integrity: sha512-tYo5UTfFkflHjO6MIwoPFxR7ALhcUEEP+WZaNAn2iGRe0j9pvEsw0qWxtbxYqPyOs6xecWq3EAm/p19DV73jAw==}
 
   optioner@5.0.1:
     resolution: {integrity: sha512-WrR6M1H5JnK9lI/0TUDtSdqTwTSLOno4EZR4dC/NAJIz1Z8HePbo37eJqlrx8KP4YpB6lhrtl621gRPuOhgoLQ==}
@@ -1244,8 +1227,8 @@ packages:
     resolution: {integrity: sha512-POqxBK6Lb3q6s047D/XsDVNPnF9Dl8JSaqe9h9lURl0OdNqy/ujDrOiIHtsqXMGbWWTIomRzAMaTyawAU//Reg==}
     engines: {node: '>=4'}
 
-  sneeze-ng@0.12.5:
-    resolution: {integrity: sha512-ifgFUP8o6JyeK/W4/I6aVM/yJpz7hpAUBA54y8kyp+DSm6YNRXjZIWmIdC9BYI0HfR4CsHESujwxgi5yGWbhQw==}
+  sneeze-ng@0.13.0:
+    resolution: {integrity: sha512-IZjvt7JUeWitJGb4qXFeVenyivqJSO75swsAsifITaFKImA4UJ1wXHkkzAfU97z8s/9YDu1gC1jks6wvQwNSEg==}
 
   sntp@1.0.9:
     resolution: {integrity: sha512-7bgVOAnPj3XjrKY577S+puCKGCRlUrcrEdsMeRXlg9Ghf5df/xNi6sONUa43WrHUd3TjJBF7O04jYoiY0FVa0A==}
@@ -1352,11 +1335,6 @@ packages:
 
   to-buffer@1.1.1:
     resolution: {integrity: sha512-lx9B5iv7msuFYE3dytT+KE5tap+rNYw+K4jVkb9R/asAb+pbBSM17jtunHplhBe6RRJdZx3Pn2Jph24O32mOVg==}
-
-  topo@2.1.1:
-    resolution: {integrity: sha512-ZPrPP5nwzZy1fw9abHQH2k+YarTgp9UMAztcB3MmlcZSif63Eg+az05p6wTDaZmnqpS3Mk7K+2W60iHarlz8Ug==}
-    engines: {node: '>=6.0.0'}
-    deprecated: This module has moved and is now available at @hapi/topo. Please update your dependencies as this version is no longer maintained and may contain bugs and security issues.
 
   topo@3.0.3:
     resolution: {integrity: sha512-IgpPtvD4kjrJ7CRA3ov2FhWQADwv+Tdqbsf1ZnPUSAtCJ9e1Z44MmoSGDXGk4IppoZA7jd/QRkNddlLJWlUZsQ==}
@@ -1494,8 +1472,6 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  '@jsonic/jsonic-next@2.12.1': {}
-
   '@lukeed/csprng@1.1.0': {}
 
   '@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3':
@@ -1547,7 +1523,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wzrdtales/visigoth@2.0.0':
+  '@wzrdtales/visigoth@2.0.3':
     dependencies:
       lodash: 4.17.21
 
@@ -2155,8 +2131,6 @@ snapshots:
 
   hoek@2.16.3: {}
 
-  hoek@4.2.1: {}
-
   hoek@4.3.1: {}
 
   hoek@5.0.4: {}
@@ -2249,12 +2223,6 @@ snapshots:
   isstream@0.1.2: {}
 
   items@2.2.1: {}
-
-  joi@12.0.0:
-    dependencies:
-      hoek: 4.3.1
-      isemail: 3.2.0
-      topo: 2.1.1
 
   joi@13.7.0:
     dependencies:
@@ -2364,10 +2332,9 @@ snapshots:
       pseudomap: 1.0.2
       yallist: 2.1.2
 
-  microwizard@1.1.5:
+  microwizard@1.3.4:
     dependencies:
-      '@jsonic/jsonic-next': 2.12.1
-      '@wzrdtales/visigoth': 2.0.0
+      '@wzrdtales/visigoth': 2.0.3
       bluebird: 3.7.2
       ip: 2.0.1
       lodash: 4.17.21
@@ -2377,7 +2344,7 @@ snapshots:
       optioner: 5.0.1
       reconnect-core: 1.3.0
       rif: 0.3.0
-      sneeze-ng: 0.12.5
+      sneeze-ng: 0.13.0
       uid: 2.0.2
     transitivePeerDependencies:
       - supports-color
@@ -2508,11 +2475,6 @@ snapshots:
       prelude-ls: 1.1.2
       type-check: 0.3.2
       word-wrap: 1.2.5
-
-  optioner@1.1.0:
-    dependencies:
-      hoek: 4.2.1
-      joi: 12.0.0
 
   optioner@5.0.1:
     dependencies:
@@ -2738,7 +2700,7 @@ snapshots:
     dependencies:
       is-fullwidth-code-point: 2.0.0
 
-  sneeze-ng@0.12.5:
+  sneeze-ng@0.13.0:
     dependencies:
       '@wzrdtales/swim-ng': 0.6.2
       ansi-escapes: 3.1.0
@@ -2747,7 +2709,7 @@ snapshots:
       keypress: 0.2.1
       lodash: 4.17.21
       nid: 0.3.2
-      optioner: 1.1.0
+      optioner: 5.0.1
       pad: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -2887,10 +2849,6 @@ snapshots:
       os-tmpdir: 1.0.2
 
   to-buffer@1.1.1: {}
-
-  topo@2.1.1:
-    dependencies:
-      hoek: 4.3.1
 
   topo@3.0.3:
     dependencies:
