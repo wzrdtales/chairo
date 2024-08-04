@@ -19,7 +19,7 @@
     "bounce": "^1.2.0",
     "items": "^2.1.1",
     "joi": "^13.1.2",
-    "microwizard": "^1.3.10"
+    "microwizard": "^1.3.11"
   },
   "peerDependencies": {
     "hapi": ">=11.x.x"

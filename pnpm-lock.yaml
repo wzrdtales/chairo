@@ -27,8 +27,8 @@ importers:
         specifier: ^13.1.2
         version: 13.7.0
       microwizard:
-        specifier: ^1.3.10
-        version: 1.3.10
+        specifier: ^1.3.11
+        version: 1.3.11
     devDependencies:
       code:
         specifier: 4.x.x
@@ -133,8 +133,8 @@ packages:
   '@wzrdtales/swim-ng@0.6.2':
     resolution: {integrity: sha512-rfHo0Z9a4X7xh/w3NzM5HUW6BIHZy4gwV2OTBhpHAYTEbKXRT2l/gj6nwDA/6UPVsvWl6pqvT5ZW2dMUt5MWJg==}
 
-  '@wzrdtales/visigoth@2.0.4':
-    resolution: {integrity: sha512-HC8K8It0hoiO9OmntUSYX2tIgykd4yDK5M4ENUMlC6+fjjsPIJRgmj9gkoEqQQ4bi6C1GVtsIO7xoE0fXLIOzg==}
+  '@wzrdtales/visigoth@2.0.5':
+    resolution: {integrity: sha512-grcDXqtZVXHW46293gjKJKAsN7tCwYrdozaeIN6XLycXrwCtGPnQvvV8kyVqX0Yqxn3V5i/eRnrW2UM7bHfDOg==}
 
   accept@3.1.3:
     resolution: {integrity: sha512-OgOEAidVEOKPup+Gv2+2wdH2AgVKI9LxsJ4hicdJ6cY0faUuZdZoi56kkXWlHp9qicN1nWQLmW5ZRGk+SBS5xg==}
@@ -910,8 +910,8 @@ packages:
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
 
-  microwizard@1.3.10:
-    resolution: {integrity: sha512-IaiffVXSwrD7vv6BGH6PD6rG+I7fBCUjaObWpSfKmuPxXSo4xnFxfEKSF/t8RIqz+wwUZXGEU4SWvHrdBVA6Xg==}
+  microwizard@1.3.11:
+    resolution: {integrity: sha512-9cIKKbbDoqV66OY+FMJBUBTOiU0xyt9eFDKGNeak76trhrcmOKJNTR903yHPYH1kD+1p2YGpkBPp9qK/GWvRUQ==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -1523,7 +1523,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wzrdtales/visigoth@2.0.4':
+  '@wzrdtales/visigoth@2.0.5':
     dependencies:
       lodash: 4.17.21
 
@@ -2332,9 +2332,9 @@ snapshots:
       pseudomap: 1.0.2
       yallist: 2.1.2
 
-  microwizard@1.3.10:
+  microwizard@1.3.11:
     dependencies:
-      '@wzrdtales/visigoth': 2.0.4
+      '@wzrdtales/visigoth': 2.0.5
       bluebird: 3.7.2
       ip: 2.0.1
       lodash: 4.17.21
